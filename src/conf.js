@@ -5,6 +5,8 @@ const inquirer = require("inquirer");
 
 const CONFIG = os.homedir() + "/.onetab-sync.json"
 
+console.log('CONFIG - ', CONFIG)
+
 const QUESTIONS = {
     "chrome_profile_path": [{
         type: "list",
