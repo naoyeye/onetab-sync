@@ -10,10 +10,22 @@ const uploadToGist = async () => {
     console.info("uploading data to gist ...");
     try {
         let config = await conf.load(["chrome_profile_path", "onetab_ext_id", "gist_token"]);
+        console.log('config - ', config)
+
         let oneTabData = await readOneTabData(config);
-        let res = await gist.upload(config, oneTabData);
-        console.info("success. " + res.html_url);
-        return res;
+        console.log('oneTabData - ', typeof oneTabData)
+
+        fs.writeFile('/Users/hanjiyun/Downloads/test.json', oneTabData, (err, data) => {
+          if (err) {
+            return console.log(err);
+          }
+          return '保存好了';
+        });
+
+        // Upload to gist
+        // let res = await gist.upload(config, oneTabData);
+        // console.info("success. " + res.html_url);
+        // return res;
     } catch(e) {
         console.error(e);
     }
@@ -59,7 +71,9 @@ const readOneTabData = async (config) => {
     try {
         let db = await openOneTabDB(config);
         let result = await db.get();
+        console.log('拿到了 readOneTabData result')
         await db.close();
+        console.log('真的关了', result.length)
         return result;
     } catch (e) {
         return Promise.reject(

@@ -26,3 +26,9 @@ npm install -g onetab-sync
     sync            sync onetab data with gist
     restore <file>  restore onetab data from backup file
 ```
+
+## Dev
+
+ ```bash
+ yarn build; sudo node index.js upload;
+ ```
